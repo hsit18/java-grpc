@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package greet;
+
+option java_package = "org.grpcdemo.proto.model.greet";
+option java_multiple_files = true;
+
+message GreetRequest {
+  string name = 1;
+}
+
+message GreetResponse {
+  string message = 1;
+}
+
+service Greet {
+  rpc Greet (GreetRequest) returns (GreetResponse);
+}
