@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package user;
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.grpcdemo.proto.model.user";
+option java_multiple_files = true;
+
+service UserService {
+  rpc getUsers(noParams) returns (usersResponse) {}
+  rpc getUser(userRequestParam) returns (userData) {}
+  rpc createUser(userData) returns (userData) {}
+  rpc updateUser(userData) returns (userData) {}
+  rpc deleteUser(userRequestParam) returns (DeleteUserResponse) {}
+}
+
+message User {
+  int32 ID = 1;
+  string firstname = 2;
+  string lastname = 3;
+  string email = 4;
+  int32 age = 5;
+  double salary = 6;
+  bool employed = 7;
+  int64 bank_account_number = 8;
+  sint32 balance = 9;
+  google.protobuf.Timestamp created = 10;
+};
+
+message noParams {
+};
+
+message DeleteUserResponse{
+  bool success = 1;
+};
+
+message userData {
+  User user = 1;
+};
+
+message usersResponse {
+  repeated User users = 1;
+};
+
+message userRequestParam {
+  int32 ID = 1;
+}

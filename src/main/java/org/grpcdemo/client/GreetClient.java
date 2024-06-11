@@ -13,6 +13,5 @@ public class GreetClient {
         var request = GreetRequest.newBuilder().setName("Harpreet").build();
         var response = stub.greet(request);
         System.out.println(response);
-
     }
 }
