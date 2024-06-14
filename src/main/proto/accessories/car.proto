@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package car;
+option java_package = "com.grpcdemo.proto.model.car";
+option java_multiple_files = true;
+
+enum Type {
+  SEDAN = 0;
+  XUV = 1;
+}
+
+message Car {
+  string make = 1;
+  Type type = 2;
+}

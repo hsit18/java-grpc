@@ -2,12 +2,14 @@ syntax = "proto3";
 
 package user;
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "accessories/car.proto";
 
 option java_package = "com.grpcdemo.proto.model.user";
 option java_multiple_files = true;
 
 service UserService {
-  rpc getUsers(noParams) returns (usersResponse) {}
+  rpc getUsers(google.protobuf.Empty) returns (usersResponse) {}
   rpc getUser(userRequestParam) returns (userData) {}
   rpc createUser(userData) returns (userData) {}
   rpc updateUser(userData) returns (userData) {}
@@ -25,6 +27,7 @@ message User {
   int64 bank_account_number = 8;
   sint32 balance = 9;
   google.protobuf.Timestamp created = 10;
+  car.Car car = 11;
 };
 
 message noParams {

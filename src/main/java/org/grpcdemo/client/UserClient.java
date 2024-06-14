@@ -1,9 +1,11 @@
 package org.grpcdemo.client;
 
+import com.google.protobuf.Empty;
 import com.google.protobuf.Timestamp;
+import com.grpcdemo.proto.model.car.Car;
+import com.grpcdemo.proto.model.car.Type;
 import com.grpcdemo.proto.model.user.*;
 import com.grpcdemo.proto.model.user.UserServiceGrpc;
-import com.grpcdemo.proto.model.user.noParams;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -21,7 +23,7 @@ public class UserClient {
 
     public static void getUsers() {
         var stub = UserServiceGrpc.newBlockingStub(channel);
-        var response = stub.getUsers(noParams.newBuilder().build());
+        var response = stub.getUsers(Empty.newBuilder().build());
         System.out.println(response);
     }
     public static void createUser() {
@@ -36,7 +38,9 @@ public class UserClient {
                 .setSalary(123.45)
                 .setBankAccountNumber(123234243)
                 .setCreated(Timestamp.newBuilder().setNanos(77).build())
-                .setAge(30).build();
+                .setAge(30)
+                .setCar(Car.newBuilder().setMake("Toyota").build())
+                .build();
         var response = stub.createUser(userData.newBuilder().setUser(user).build());
         System.out.println(response);
     }
@@ -46,6 +50,7 @@ public class UserClient {
         var userResponse = stub.getUser(userRequestParam.newBuilder().setID(1).build());
         var user = userResponse.getUser().toBuilder()
                 .setFirstname("Harpreet")
+                .setCar(Car.newBuilder().setMake(userResponse.getUser().getCar().getMake()).setType(Type.XUV).build())
                 .build();
         var response = stub.updateUser(userData.newBuilder().setUser(user).build());
         System.out.println(response);

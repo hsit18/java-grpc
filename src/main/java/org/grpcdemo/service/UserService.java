@@ -1,6 +1,7 @@
 package org.grpcdemo.service;
 
 
+import com.google.protobuf.Empty;
 import com.google.protobuf.Timestamp;
 import com.grpcdemo.proto.model.user.*;
 import io.grpc.stub.StreamObserver;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
     private UserRepository userRepository = new UserRepository();
-    public void getUsers(noParams request, StreamObserver<usersResponse> responseObserver) {
+    public void getUsers(Empty request, StreamObserver<usersResponse> responseObserver) {
         responseObserver.onNext(usersResponse.newBuilder().addAllUsers(userRepository.getAllUsers()).build());
         responseObserver.onCompleted();
     }
